@@ -6,8 +6,13 @@ const Todo = require('./models/todo')
 
 const bodyParser = require('body-parser')
 
+const PORT = process.env.PORT || 3000
+
 const exphbs = require('express-handlebars')
-mongoose.connect('mongodb://localhost/todo-list', { useNewUrlParser: true, useUnifiedTopology: true })
+
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/todo-list'
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
@@ -78,6 +83,6 @@ app.post('/todos/:id/delete', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.listen(3000, () => {
-  console.log('App is running on http://localhost:3000')
+app.listen(PORT, () => {
+  console.log(`App is running on http://localhost:${PORT}`)
 })
